@@ -1,0 +1,25 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+
+.validate-label {
+  --color: red;
+}
+
+ion-item {
+  font-size: rem(28);
+}
+
+ion-select {
+  .select-icon {
+    display: none;
+  }
+}
+
+ion-footer {
+  background: #ededed;
+  .ion-footer-bar {
+    --background: #ededed;
+    --border-color: #ededed;
+  }
+}

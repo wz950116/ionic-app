@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/worker' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+    </ion-buttons>
+    <ion-title>新建入库单</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item detail button (click)="supplierSelect()">
+      <ion-label class="label">
+        <ion-text color="danger">供应商*</ion-text>
+      </ion-label>
+      <ion-label class="value" slot="end">{{ formData.supplierName }}</ion-label>
+    </ion-item>
+    <ion-item detail button (click)="storageSelect()">
+      <ion-label class="label">
+        <ion-text color="danger">仓库*</ion-text>
+      </ion-label>
+      <ion-label class="value" slot="end">{{ formData.warehouseName }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text color="danger">币种*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.currencyCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of currencyList" [value]="item.value">{{ item.label }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">商品信息</ion-label>
+      <ion-button class='add-product-button' color="primary" (click)="onAddProduct()">+&nbsp;&nbsp;添加</ion-button>
+    </ion-item>
+
+    <!-- 商品信息列表 -->
+    <ng-container *ngFor="let item of formData.inProductList">
+      <ion-item-sliding>
+        <ion-item detail class='product-list'>
+          <ion-label class="label">
+            <div class='title'>批次号{{ item.lotNo }}</div>
+            <div>
+              <span class='avatar'>{{ item.productName }}</span>
+              <div class='info'>
+                <p class='info-name'>
+                  {{ item.brand }}<span *ngIf="item.origin">-{{ item.origin }}</span><span *ngIf="item.spec">-{{ item.spec }}</span>
+                </p>
+                <p>
+                  <span *ngIf="item.includeTaxPrice">￥</span>
+                  {{ item.includeTaxPrice }}
+                  <span *ngIf="item.includeTaxPrice">*</span>
+                  {{ item.measurementQuantity || 0 }}{{ item.productUnitCode | dataDictFormate: 'goodsUnit' }}
+                </p>
+                <p>入库数量：{{ item.inQuantity || 0 }}{{ item.productUnitCode | dataDictFormate: 'goodsUnit' }}</p>
+              </div>
+            </div>
+          </ion-label>
+          <ion-text *ngIf="item.includeTaxPrice" class="value product-value">￥{{ item.includeTaxPrice * item.measurementQuantity }}</ion-text>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="onDeleteProduct(item)">删除</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item class="product-bottom-btns">
+        <ion-checkbox color="primary" [(ngModel)]="item.rightFlag"></ion-checkbox>&nbsp;货权转移
+        <ion-checkbox color="primary" [(ngModel)]="item.goodsFlag"></ion-checkbox>&nbsp;货齐
+        <ion-icon name="add-circle" (click)="onAddCost(item)"></ion-icon>&nbsp;费用
+      </ion-item>
+    </ng-container>
+    <!-- 费用信息列表 -->
+    <ng-container *ngIf="formData.inBillCostList.length">
+      <ion-item class="cost-list-header">
+        <ion-label class="label">费用信息</ion-label>
+        <ion-label class="value">
+          <ion-text color="primary" (click)="showBillCostList = !showBillCostList">{{ showBillCostList ? '收起' : '展开' }}</ion-text>
+        </ion-label>
+      </ion-item>
+      <ng-container *ngIf="showBillCostList">
+        <ion-item-sliding *ngFor="let item of formData.inBillCostList; let i = index">
+          <ion-item class="cost-list-item">
+            <ion-label class="label">
+              <ion-text class="number">{{ i + 1 }}</ion-text>
+              <div class="info">
+                <p class="base">{{ item.productName }}：{{ item.brand }}-{{ item.origin }}-{{ item.spec }}</p>
+                <p class="address">{{ item.settlementName }}</p>
+                <p class="fund">{{ item.feeName }}</p>
+              </div>
+            </ion-label>
+            <ion-label class="value" slot="end">
+              <ion-badge color='receivable'>{{ item.feeDirection | dataDictFormate: 'feeDirection' }}</ion-badge>
+              <div class="amount" *ngIf="item.includeTaxAmount">￥{{ item.includeTaxAmount }}</div>
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="onDeleteCost(item)">删除</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-container>
+    </ng-container>
+    <div class='block'></div>
+
+    <ion-item detail>
+      <ion-label class="label">
+        <ion-text color="danger">入库日期*</ion-text>
+      </ion-label>
+      <ion-datetime [(ngModel)]="formData.inDate" displayFormat="YYYY-MM-DD" placeholder="" doneText="确定" cancelText="取消"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text color="danger">业务机构*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.bizOrganCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of bizOrganList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text color="danger">业务部门*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.bizDeptCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of bizDeptList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text color="danger">业务员*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.bizEmployeeCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of bizEmployeeList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-col size="3">
+        <ion-label class="label">备注</ion-label>
+      </ion-col>
+      <ion-col class='textarea' size="9">
+        <ion-textarea [(ngModel)]="formData.remark" rows="4" placeholder="请输入审核意见"></ion-textarea>
+      </ion-col>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-footer-bar">
+    <ion-row>
+      <ion-col size="6">
+        <ion-button color="medium" expand="block" fill="solid" (click)="doCancle()">取消</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="primary" expand="block" fill="solid" (click)="doSave()">保存</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

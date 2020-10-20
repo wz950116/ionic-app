@@ -1,0 +1,34 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+ion-header {
+  ion-button {
+    img {
+      width: rem(37);
+      height: rem(37);
+    }
+  }
+}
+.newsWrap {
+  --background: #ededed;
+  --padding-start: 0;
+  --padding-end: 0;
+  ion-list {
+    border-bottom: 1px solid #e1e1e1;
+    ion-item {
+      ion-thumbnail {
+        width: rem(80);
+        position: relative;
+        img {
+          height: rem(80);
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+      &:last-child {
+        --border-color: #fff;
+      }
+    }
+  }
+}

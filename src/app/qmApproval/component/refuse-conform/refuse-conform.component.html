@@ -1,0 +1,32 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>审核意见</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content">
+  <ion-list lines="none" class="content_list">
+    <ion-item class="textarea">
+      <ion-label class="label" position="stacked">审核意见</ion-label>
+      <ion-textarea
+        [(ngModel)]="formData.opinion"
+        placeholder="请输入审核意见"
+        class="input"
+      ></ion-textarea>
+    </ion-item>
+  </ion-list>
+  <div class="ion-padding">
+    <ion-button
+      expand="block"
+      type="submit"
+      class="ion-no-margin"
+      (click)="onSave()"
+      >确认</ion-button
+    >
+  </div>
+</ion-content>

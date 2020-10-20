@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/news' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+    </ion-buttons>
+    <ion-title>消息提醒</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="newsDetailWrap">
+  <div>
+    <div class="detail_content">
+      <span class="detail_date">
+        {{ news.userSendDt | date: "yyyy-MM-dd HH:mm:ss" }}</span
+      >
+      <ion-card>
+        <ion-item lines="none">
+          <img [src]="news.img" alt="" srcset="" />
+          <span class="tit">{{ news.msgTitle }}</span>
+        </ion-item>
+        <ion-card-content>
+          <div>{{ news.senderName }}&nbsp;:&nbsp;{{ news.msgContent }}</div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

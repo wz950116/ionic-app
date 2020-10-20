@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/worker' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>定价登记</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item detail lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">定价日期*</ion-text>
+      </ion-label>
+      <ion-datetime [(ngModel)]="formData.pricingTime" displayFormat="YYYY-MM-DD" placeholder="请选择日期" doneText="确定"
+        cancelText="取消"></ion-datetime>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">价格*</ion-text>
+      </ion-label>
+      <ion-input required type="text" placeholder="请输入价格" [(ngModel)]="formData.price"></ion-input>
+    </ion-item>
+    <!-- 商品信息 -->
+    <ion-item lines="full">
+      <ion-label>定价批次</ion-label>
+      <ion-button slot="end" color="myPrimary" [routerLink]="[ '/price-registration/price-batch' ]">
+        <ion-icon name="ios-add"></ion-icon>
+        选择
+      </ion-button>
+    </ion-item>
+    <!-- 商品添加 -->
+    <ion-row *ngIf="showFlag">
+      <ion-col size="12" style=" padding: 0;">
+        <ion-card>
+          <ion-card-content>
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label class="label">
+                  <ion-text>定价登记号</ion-text>
+                </ion-label>
+                {{formData.pricingCode}}
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  <ion-text>合同号</ion-text>
+                </ion-label>
+                <ion-text>{{formData.contractCode}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  <ion-text>定价批次号</ion-text>
+                </ion-label>
+                <ion-text>{{formData.pricingLotCode}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  <ion-text color="danger">购销类型*</ion-text>
+                </ion-label>
+                <ion-text>{{formData.purchaseOrSale | dataDictFormate: 'purchaseOrSale'}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  <ion-text color="danger">币种*</ion-text>
+                </ion-label>
+                <ion-text>{{formData.currency  | dataDictFormate: 'currency'}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  商品名称
+                </ion-label>
+                <ion-text>{{formData.productCode}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  定价方式
+                </ion-label>
+                <ion-text>{{formData.pricingType | dataDictFormate: 'pricingType'}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  定价基准
+                </ion-label>
+                <ion-text>{{formData.pricingBenchmark}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  定价数量
+                </ion-label>
+                <ion-text>{{formData.pricingQuantity}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  计量单位
+                </ion-label>
+                <ion-text>{{formData.valueUnit}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  <ion-text>制单人</ion-text>
+                </ion-label>
+                <ion-text>{{formData.docMaker}}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label class="label">
+                  制单日期
+                </ion-label>
+                <ion-text>{{formData.docMakeDate | dateFormate}}</ion-text>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="remark">
+      <ion-col size="12">
+        <ion-label>备注</ion-label>
+      </ion-col>
+      <ion-col size="12">
+        <ion-textarea rows="4" cols='24' [(ngModel)]="formData.note" placeholder="请输入备注信息"></ion-textarea>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-footer-bar">
+    <ion-row>
+      <ion-col [size]="6">
+        <ion-button color="medium" fill="solid" (click)="doCancle()">取消</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="danger" fill="solid" (click)="doSave()">保存</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

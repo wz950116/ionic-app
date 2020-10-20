@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-title>详情</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价批次号</ion-text>
+      </ion-label>
+      {{formData.pricingLotCode}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>合同号</ion-text>
+      </ion-label>
+      {{formData.contractCode}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价批次号</ion-text>
+      </ion-label>
+      {{formData.pricingLotCode}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>购销类型</ion-text>
+      </ion-label>
+      {{formData.purchaseOrSale | dataDictFormate: 'purchaseOrSale'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>币种</ion-text>
+      </ion-label>
+      {{formData.currency | dataDictFormate: 'currency'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>商品名称</ion-text>
+      </ion-label>
+      {{formData.productName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价方式</ion-text>
+      </ion-label>
+      {{formData.pricingType | dataDictFormate: 'pricingType'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价基准</ion-text>
+      </ion-label>
+      {{formData.pricingItemName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价开始日</ion-text>
+      </ion-label>
+      {{formData.pricingTimeStart}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价结束日</ion-text>
+      </ion-label>
+      {{formData.pricingTimeEnd}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价数量</ion-text>
+      </ion-label>
+      {{formData.pricingQuantity}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>未登记数量</ion-text>
+      </ion-label>
+      {{formData.rmnMemQty}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>计量单位</ion-text>
+      </ion-label>
+      {{formData.valueUnit | dataDictFormate: 'measurementUnit' }}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>升贴水</ion-text>
+      </ion-label>
+      {{formData.premium}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>制单人</ion-text>
+      </ion-label>
+      {{formData.docMaker}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>制单日期</ion-text>
+      </ion-label>
+      {{formData.docMakeDate | dateFormate}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>备注</ion-text>
+      </ion-label>
+      {{formData.note}}
+    </ion-item>
+  </ion-list>
+</ion-content>

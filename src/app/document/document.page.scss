@@ -1,0 +1,82 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+ion-content {
+  --background: #f6f6f8;
+  --padding-start: 0.94rem;
+  --padding-end: 0.94rem;
+  ion-searchbar {
+    margin: 0;
+    --background: #fff;
+    --icon-color: #999;
+    --color: #999;
+    .searchbar-input.sc-ion-searchbar-ios {
+      border-radius: 100px;
+      border: 1px solid #999;
+    }
+  }
+
+  ion-card {
+    --background: #fff;
+    padding: 0;
+    margin: rem(10);
+    box-shadow: 0 0 4px 2px #ececec;
+    ion-card-header {
+      position: relative;
+      .tit {
+        display: flex;
+        padding-left: 10px;
+        font-size: rem(30);
+        float: left;
+        width: 60%;
+      }
+      .time {
+        display: inline-block;
+        text-align: right;
+        width: 40%;
+        font-size: rem(26);
+        // color: #5cb4fb;
+        color: #ccc;
+      }
+      .tit::before {
+        content: '';
+        height: rem(26);
+        width: 2px;
+        background: #2484cf;
+        position: absolute;
+        top: 24px;
+        left: 20px;
+      }
+    }
+
+    ion-card-content {
+      padding-top: 0;
+      padding-bottom: rem(20);
+      font-size: rem(26);
+
+      span {
+        color: #999;
+      }
+      .content {
+        padding-bottom: rem(20);
+      }
+      .buttons {
+        text-align: right;
+        ion-button {
+          --border-radius: 100px;
+          --padding-start: 18px;
+          --padding-end: 18px;
+        }
+        .editButton {
+          --background: #008fff;
+        }
+        .viewButton {
+          --background: #dbefff;
+          --border-width: 1px;
+          --border-color: #008fff;
+          --color: #008fff;
+        }
+      }
+    }
+  }
+}

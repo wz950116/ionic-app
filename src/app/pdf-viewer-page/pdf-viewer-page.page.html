@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-title>{{ attachment.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <pdf-viewer
+    [src]="attachment.pdfSource"
+    [show-all]="true"
+    [original-size]="true"
+    [zoom]="1"
+    [autoresize]="true"
+    style="display: block"
+  >
+  </pdf-viewer>
+</ion-content>

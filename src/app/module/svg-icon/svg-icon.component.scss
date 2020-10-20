@@ -1,0 +1,11 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+.svg {
+  width: rem(38);
+  height: rem(38);
+  svg {
+    width: rem(38);
+    height: rem(38);
+  }
+}

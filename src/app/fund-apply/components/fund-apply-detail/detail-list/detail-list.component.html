@@ -1,0 +1,195 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-title>详情</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>单据类型</ion-text>
+      </ion-label>
+      {{formData.billType | dataDictFormate : 'billTypeLot' }}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>合同号</ion-text>
+      </ion-label>
+      {{formData.contractNo}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>批次号</ion-text>
+      </ion-label>
+      {{formData.lotNo}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>贸易类型</ion-text>
+      </ion-label>
+      {{formData.tradeType | dataDictFormate : 'tradeType' }}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>抬头</ion-text>
+      </ion-label>
+      {{formData.headlineNames}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>客户</ion-text>
+      </ion-label>
+      {{formData.customerNames}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>签订日期</ion-text>
+      </ion-label>
+      {{formData.signDate}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>有效期(始)</ion-text>
+      </ion-label>
+      {{formData.lotLifeStart | dateFormate}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>有效期(止)</ion-text>
+      </ion-label>
+      {{formData.lotLifeEnd | dateFormate}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>商品名称</ion-text>
+      </ion-label>
+      {{formData.productName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>品牌</ion-text>
+      </ion-label>
+      {{formData.brand}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>产地</ion-text>
+      </ion-label>
+      {{formData.origin}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>规格</ion-text>
+      </ion-label>
+      {{formData.spec}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>材质</ion-text>
+      </ion-label>
+      {{formData.productKeyAttr01}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>物资属性2</ion-text>
+      </ion-label>
+      {{formData.productKeyAttr02}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>定价方式</ion-text>
+      </ion-label>
+      {{formData.pricingType | dataDictFormate : 'pricingType'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>价格</ion-text>
+      </ion-label>
+      {{formData.estimatedPrice}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>商品数量</ion-text>
+      </ion-label>
+      {{formData.productQuantity}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>商品单位</ion-text>
+      </ion-label>
+      {{formData.productUnitCode | dataDictFormate:'goodsUnit'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>计量数量</ion-text>
+      </ion-label>
+      {{formData.measurementQuantity}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>计量单位</ion-text>
+      </ion-label>
+      {{formData.measurementUnitCode | dataDictFormate:'measurementUnit'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>币种</ion-text>
+      </ion-label>
+      {{formData.currency | dataDictFormate:'currency'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>原币金额</ion-text>
+      </ion-label>
+      {{formData.goodsAmount}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>申请中金额</ion-text>
+      </ion-label>
+      {{formData.applyAmount}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>已收已付金额</ion-text>
+      </ion-label>
+      {{formData.hasPaymentAmount}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>可申请金额</ion-text>
+      </ion-label>
+      {{formData.noneApplyAmount}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>可认领金额</ion-text>
+      </ion-label>
+      {{formData.noneClaimAmount}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>业务经理</ion-text>
+      </ion-label>
+      {{formData.bizEmployeeName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>制单人</ion-text>
+      </ion-label>
+      {{formData.optEmployeeName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>制单日期</ion-text>
+      </ion-label>
+      {{formData.docMakeDt | dateFormate}}
+    </ion-item>
+  </ion-list>
+</ion-content>

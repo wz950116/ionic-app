@@ -1,0 +1,30 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+.content_list {
+  margin: rem(20) 0;
+  .textarea {
+    font-size: rem(26);
+    margin-bottom: rem(16);
+    .label {
+      width: rem(168);
+      color: #999999;
+    }
+    .input {
+      // width: rem(426);
+      height: rem(226);
+      --padding-bottom: 0.3rem;
+      --padding-end: 0.3rem;
+      --padding-start: 0.3rem;
+      --padding-top: 0.5rem;
+      --placeholder-color: #acacac;
+      --color: #333333;
+      border: 1px solid #e1e1e1;
+      display: grid;
+      font-size: rem(24);
+    }
+  }
+}
+.ion-no-margin {
+  --border-radius: 2px;
+}

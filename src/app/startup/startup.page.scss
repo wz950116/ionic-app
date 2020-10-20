@@ -1,0 +1,40 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+.startupWrap {
+  width: 100%;
+  height: 100%;
+  --ion-background-color: linear-gradient(160deg, #2484cf, #70b3e2, #2484cf);
+  position: relative;
+  .bg {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+  }
+  .startup {
+    width: rem(600);
+    height: rem(400);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    .logo {
+      height: rem(200);
+      img {
+        width: rem(140);
+      }
+    }
+    h4 {
+      letter-spacing: rem(2);
+      width: rem(600);
+      color: #fff;
+      font-size: rem(42);
+      text-shadow: 0 1px 4px #0a5794;
+      line-height: rem(50);
+      span {
+        font-size: rem(28);
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+.completeWrap {
+  width: 100%;
+  height: 100%;
+  --background: #ededed;
+  --padding-start: 0.94rem;
+  --padding-end: 0.94rem;
+}

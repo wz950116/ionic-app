@@ -1,0 +1,9 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+.timeWrap {
+  ion-label {
+    display: block;
+    margin: 16px;
+  }
+}

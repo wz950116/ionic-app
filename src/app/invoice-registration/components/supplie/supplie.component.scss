@@ -1,0 +1,57 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+
+ion-content {
+  --background: #f6f6f8;
+  // --padding-start: 0.94rem;
+  // --padding-end: 0.94rem;
+  ion-item {
+    --background: #fff;
+    --border-color: #f1f1f1;
+    --detail-icon-color: #959595;
+    --detail-icon-font-size: rem(30);
+    font-size: rem(26);
+    ion-label {
+      font-size: rem(26);
+    }
+
+    ion-input {
+      text-align: right;
+      --padding-end: 15px;
+      --color: #666;
+      font-size: rem(26);
+    }
+    ion-select {
+      font-size: rem(26);
+    }
+    ion-button {
+      font-size: rem(24);
+      --padding-start: 10px;
+      --padding-end: 10px;
+      margin: 4px 5px;
+      height: rem(60);
+      --border-radius: 100px;
+      ion-icon {
+        color: #fff;
+        font-size: rem(42);
+      }
+      img {
+        width: rem(28);
+        margin-right: 5px;
+      }
+    }
+    ion-datetime {
+      font-size: rem(24);
+      --color: #666;
+      // --placeholder-color
+    }
+
+    ion-textarea {
+      font-size: rem(26);
+      --color: #666;
+      border: 1px solid #f1f1f1;
+      padding-left: 10px;
+    }
+  }
+}

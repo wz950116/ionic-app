@@ -1,0 +1,153 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.label {
+  color: #333333;
+}
+.value {
+  color: #999999;
+  float: right;
+  text-align: right;
+}
+
+ion-item {
+  --border-color: #ededed;
+  font-size: rem(28);
+  .textarea {
+    border: 1px solid #ededed;
+    margin: rem(10) 0;
+  }
+}
+
+.add-product-button {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --border-radius: 15px;
+  height: rem(60);
+}
+
+.product-list {
+  .product-value {
+    font-size: rem(28);
+  }
+  .title {
+    margin-bottom: rem(20);
+    color: #999999;
+  }
+  .avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    width: rem(160);
+    height: rem(160);
+    text-align: center;
+    background: rgb(0, 143, 255);
+    color: #ffffff;
+    white-space: pre-wrap;
+  }
+  .info {
+    float: left;
+    margin-left: rem(20);
+    color: #999999;
+    p {
+      line-height: rem(160/3);
+    }
+    .info-name {
+      color: #000000;
+      font-size: rem(32);
+    }
+  }
+}
+
+.product-bottom-btns {
+  font-size: rem(28);
+  ion-checkbox {
+    width: rem(44);
+    height: rem(44);
+    margin-left: 20px;
+  }
+  ion-icon {
+    width: rem(50);
+    height: rem(50);
+    margin-left: 20px;
+    color: rgb(255, 113, 99);
+  }
+}
+
+.cost-list-item {
+  .label {
+    text-overflow: inherit;
+    .number {
+      display: inline-block;
+      width: rem(60);
+      height: rem(60);
+      line-height: rem(60);
+      text-align: center;
+      border-radius: 50%;
+      background: rgb(0, 143, 255);
+      color: #ffffff;
+      vertical-align: middle;
+    }
+    .info {
+      display: inline-block;
+      width: rem(200);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: middle;
+      margin-left: 1rem;
+      p {
+        font-size: rem(28);
+        line-height: rem(120/3);
+      }
+      .address {
+        color: #999999;
+      }
+      .fund {
+        color: #333333;
+      }
+    }
+  }
+  .value {
+    .amount {
+      font-size: rem(32);
+      line-height: rem(50);
+    }
+  }
+}
+
+.block {
+  width: 100%;
+  height: rem(20);
+  background: #eeeeee;
+}
+
+ion-footer {
+  background: #ededed;
+  .ion-footer-bar {
+    --background: #ededed;
+    --border-color: #ededed;
+    ion-button {
+      height: rem(90);
+      --border-radius: 5px;
+    }
+  }
+}
+
+.ion-color-receivable {
+  --ion-color-base: rgb(251, 225, 226);
+  --ion-color-contrast: rgb(254, 114, 97);
+}
+.ion-color-payable {
+  --ion-color-base: rgb(215, 251, 223);
+  --ion-color-contrast: rgb(32, 172, 65);
+}

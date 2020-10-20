@@ -1,0 +1,42 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+.reportWrap {
+  --background: #ededed;
+  --padding-start: 0;
+  --padding-end: 0;
+  .report {
+    ion-list {
+      border-bottom: 1px solid #e1e1e1;
+      ion-item {
+        --height: rem(120);
+        --padding-start: 0.9375rem;
+        --inner-padding-end: 0.9375rem;
+        --border-color: #e1e1e1;
+        --detail-icon-color: #aaa;
+        --detail-icon-font-size: 20px;
+        --detail-icon-opacity: 1;
+        &:last-child {
+          --border-color: #fff;
+        }
+        ion-label {
+          font-size: rem(30);
+        }
+        .number {
+          color: #aaa;
+          font-size: rem(26);
+        }
+      }
+    }
+    ion-thumbnail {
+      width: rem(80);
+      position: relative;
+      img {
+        height: rem(80);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

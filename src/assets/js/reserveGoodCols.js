@@ -1,0 +1,61 @@
+export default [{
+  "name": "物资预备文字1",
+  "prop": "productReservedStr1"
+}, {
+  "name": "物资预备文字2",
+  "prop": "productReservedStr2"
+}, {
+  "name": "物资预备文字3",
+  "prop": "productReservedStr3"
+}, {
+  "name": "物资预备文字4",
+  "prop": "productReservedStr4"
+}, {
+  "name": "物资预备文字5",
+  "prop": "productReservedStr5"
+}, {
+  "name": "物资预备文字6",
+  "prop": "productReservedStr6"
+}, {
+  "name": "物资预备文字7",
+  "prop": "productReservedStr7"
+}, {
+  "name": "物资预备文字8",
+  "prop": "productReservedStr8"
+}, {
+  "name": "物资预备文字9",
+  "prop": "productReservedStr9"
+}, {
+  "name": "物资预备文字10",
+  "prop": "productReservedStr10"
+}, {
+  "name": "物资预备文字11",
+  "prop": "productReservedStr11"
+}, {
+  "name": "物资预备文字12",
+  "prop": "productReservedStr12"
+}, {
+  "name": "物资预备数值1",
+  "prop": "productReservedNum1"
+}, {
+  "name": "物资预备数值2",
+  "prop": "productReservedNum2"
+}, {
+  "name": "物资预备数值3",
+  "prop": "productReservedNum3"
+}, {
+  "name": "物资预备数值4",
+  "prop": "productReservedNum4"
+}, {
+  "name": "物资预备数值5",
+  "prop": "productReservedNum5"
+}, {
+  "name": "物资预备数值6",
+  "prop": "productReservedNum6"
+}, {
+  "name": "物资预备数值7",
+  "prop": "productReservedNum7"
+}, {
+  "name": "物资预备数值8",
+  "prop": "productReservedNum8"
+}]

@@ -1,0 +1,41 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+ion-header {
+  background: #ededed;
+  ion-toolbar {
+    --background: #2484cf;
+    color: #ffffff;
+    ion-back-button {
+      --color: #ffffff;
+    }
+  }
+}
+
+ion-content {
+  --background: #ededed;
+  ion-list {
+    margin-top: rem(16);
+    margin-bottom: 0;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    ion-item {
+      ion-label {
+        font-size: rem(32);
+        color: #333333;
+      }
+      .item_info {
+        color: #999999;
+        font-size: rem(28);
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/report' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>报表详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrap">
+    <iframe [src]="srcName" frameborder=" 0" class="iframe"></iframe>
+  </div>
+</ion-content>

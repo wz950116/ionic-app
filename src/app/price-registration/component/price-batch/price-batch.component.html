@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/price-registration' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>定价批次选择</ion-title>
+    <ion-buttons slot="end" (click)="onConfirm()">
+      确定
+    </ion-buttons>
+  </ion-toolbar>
+  <div>
+    <app-header-select [documentTypeList]="documentTypeList" (outer)="selectClick($event)"></app-header-select>
+  </div>
+</ion-header>
+<app-search [type]="type" (search)="openSlideMenu($event)"></app-search>
+
+<ion-content>
+  <ion-card *ngFor="let item of list; let i = index;">
+    <ion-item lines='none' class='top-info'>
+      <ion-button shape="round" slot="start" class='ion-card-title-type'>
+        {{item.purchaseOrSale | dataDictFormate: 'purchaseOrSale'}}
+      </ion-button>
+      <ion-label>{{ item.pricingLotCode }}</ion-label>
+      <ion-text slot="end" class='ion-card-title-date'>
+        {{item.updateDate | dateFormate}}
+      </ion-text>
+    </ion-item>
+    <ion-card-content>
+      <ion-row class='middle-info'>
+        <ion-col size="12">
+          <div>{{ item.contractNo }}</div>
+          <div>
+            商品名称：{{ item.productName }}
+          </div>
+          <div>
+            定价方式-基准: {{ item.pricingType | dataDictFormate: 'pricingType'}}-{{ item.pricingItemName }}
+          </div>
+          <div>
+            定价数量(单位): {{ item.pricingQuantity}}({{item.valueUnit | dataDictFormate: 'measurementUnit'}})
+          </div>
+          <div>
+            未登记数量：{{ item.rmnMemQty}}({{item.valueUnit | dataDictFormate: 'measurementUnit'}})
+          </div>
+          <div>
+            升贴水： {{ item.premium}}
+          </div>
+        </ion-col>
+        <ion-col size="12" class='ion-card-content-button'>
+          <ng-container>
+            <ion-button shape="round" (click)="detaile(item)">查看详情</ion-button>
+          </ng-container>
+          <ng-container *ngIf="!item.disabled; else elseTemplate">
+            <ion-button shape="round" (click)="onJoin(item)">立即加入</ion-button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ion-button shape="round" style="--opacity: 0.5;" (click)="offJoin(item)">取消加入</ion-button>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

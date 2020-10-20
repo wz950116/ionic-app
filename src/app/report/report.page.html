@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-title>报表</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="reportWrap">
+  <div class="report">
+    <ion-list>
+      <ion-item detail button *ngFor="let item of reportList" (click)="showIframe(item)">
+        <ion-thumbnail slot="start">
+          <img [src]="item.url" />
+        </ion-thumbnail>
+        <ion-label>{{ item.lable }}</ion-label>
+        <p class="number">
+          {{ item.number }}
+        </p>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

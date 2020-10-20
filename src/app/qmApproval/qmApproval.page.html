@@ -1,0 +1,158 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <a [routerLink]="[ queryData.opType === 'view' ? '/completed' : '/handle' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title class="header-title">{{ queryData.businessName }}</ion-title>
+  </ion-toolbar>
+
+  <div class="header-nav">
+    <div class="header-nav-contract">{{ queryData.todoThat }}</div>
+    <div class="header-nav-time">{{ queryData.startTime }}</div>
+  </div>
+
+  <div class="top-arrow" *ngIf="dropShow"></div>
+  <ion-list *ngIf="dropShow" lines="full" class="header-options">
+    <ion-item *ngFor="let item of dropList" class="header-option">
+      {{ item.text }}
+    </ion-item>
+  </ion-list>
+
+  <div class="card-fill"></div>
+  <div class="header-card">
+    <ion-row>
+      <ion-col *ngFor="let item of cardImgList" size="4" class="header-card-item" (click)="cardItemClick(item.text)">
+        <ion-img [src]="item.imgSrc" class="img"></ion-img>
+        <ion-label position="stacked" class="text" [ngClass]="{ 'active-text': activeTab === item.text }">
+          {{ item.text }}
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-header>
+
+<ion-content class="ion-content">
+  <ng-container *ngIf="activeTab === '审批信息'">
+    <ion-list *ngFor="let info of infos" lines="none" class="information"
+      [ngStyle]="{'display': information[info].isHideFlag ? 'none' : 'block'}">
+      <ion-list-header class="information-title">
+        <ion-label class="label">{{ information[info].title }}</ion-label>
+        <ion-label class="value" (click)="toggleShow(info)">{{ showMap[info] ? "收起" : "展开" }}</ion-label>
+      </ion-list-header>
+      <ng-container *ngIf="showMap[info] && information[info].formData">
+        <ion-item *ngFor="let item of information[info].formData" class="information-item"
+          [ngStyle]="{'display': item.isHideFlag ? 'none' : 'block'}">
+          <ion-label class="label">{{ item.label }}</ion-label>
+          <ion-label class="value" slot="end" *ngIf="item.dict">{{ formData[item.prop] | dataDictFormate: item.dict }}</ion-label>
+          <ion-label class="value" slot="end" *ngIf="item.formate === 'date'">{{ formData[item.prop] | dateFormate }}</ion-label>
+          <ion-label class="value" slot="end" *ngIf="item.formate === 'thousands'">{{ formData[item.prop] | numFormate: item.precision }}</ion-label>
+          <ion-label class="value" slot="end" *ngIf="!item.dict && !item.formate">{{ formData[item.prop] }}</ion-label>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="showMap[info] && information[info].tableData">
+        <ion-item detail class="information-item" *ngFor="let item of tablesData[info]"
+          (click)="onDetail(item, information[info], formData)">
+          <ion-label>{{ item[information[info].mainColumn] | dataDictFormate: information[info].mainColumnDict }}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="tablesData[info] && tablesData[info].length === 0">
+          <ion-label>暂无数据</ion-label>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+    <ion-list class="bottom-form" lines="none">
+      <ion-item>
+        <ion-col size="3">
+          <ion-label>提交人</ion-label>
+        </ion-col>
+        <ion-col size="9">
+          <ion-text>{{ formData.submitter }}</ion-text>
+        </ion-col>
+      </ion-item>
+      <ion-item *ngIf="queryData.assistId">
+        <ion-col size="3">
+          <ion-label>协助信息</ion-label>
+        </ion-col>
+        <ion-col size="9">
+          <ion-text>{{ formData.assistMsg }}</ion-text>
+        </ion-col>
+      </ion-item>
+      <ion-item class="textarea">
+        <ion-col size="3">
+          <ion-label>审核意见</ion-label>
+        </ion-col>
+        <ion-col size="9">
+          <ion-textarea [(ngModel)]="formData.opinion" rows="4" placeholder="请输入备注信息"></ion-textarea>
+        </ion-col>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="activeTab === '附件'">
+    <div *ngIf="attachList.length > 0">
+      <div class="attachment" *ngFor="let item of attachList">
+        <div class="title">
+          <div class="name">
+            <img src="assets/img/approval/approval_attachment_icon.png" class="img" />
+            <span>{{ item.fileName }}</span>
+          </div>
+          <div class="date">{{ item.createDate }}</div>
+        </div>
+        <div class="introduction">
+          <span class="content">{{ item.createUser }}&nbsp;{{ item.remark }}</span>
+          <img (click)="download(item)" src="assets/img/approval/approval_attachment_download.png"
+            class="img download" />
+          <img (click)="preview(item)" src="assets/img/approval/approval_attachment_preview.png" class="img preview" />
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="activeTab === '审核历史'">
+    <div class="audit_history" *ngIf="auditHistory.length > 0">
+      <div class="audit_history_index">
+        <ul class="index_items">
+          <li class="item" *ngFor="let item of auditHistory; let i = index">
+            <span>{{ i + 1 }}</span>
+            <div class="underline" *ngIf="auditHistory.length - 1 !== i"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="audit_history_content">
+        <div class="step_content" *ngFor="let item of auditHistory; let i = index">
+          <div class="handle_info">
+            <span class="person">{{ item.accountName }}</span>
+            <span class="date">{{ item.updateDate }}</span>
+          </div>
+          <div class="handle_result">
+            <img src="assets/img/approval/approval_ok.png" style='width: 1rem;vertical-align: middle;' *ngIf="item.agreeFlg !== '0'" />
+            <img src="assets/img/approval/approval_refuse.png" style='width: 1rem;vertical-align: middle;' *ngIf="item.agreeFlg === '0'" />
+            <span class="result">
+              {{ item.agreeFlg | dataDictFormate: 'agreeFlg' }}&nbsp;{{ item.trackType | dataDictFormate: 'trackType' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>
+
+<ion-footer *ngIf="queryData.opType === 'edit'">
+  <ion-toolbar class="ion-footer-bar">
+    <ion-row>
+      <ion-col [size]="queryData.assistId ? 4 : 3">
+        <ion-button color="medium" expand="block" fill="solid" (click)="doCancle()">取消</ion-button>
+      </ion-col>
+      <ion-col [size]="queryData.assistId ? 4 : 3">
+        <ion-button color="danger" expand="block" fill="solid" (click)="doRefuse()">拒绝</ion-button>
+      </ion-col>
+      <ion-col size="3" *ngIf="!queryData.assistId">
+        <ion-button color="secondary" expand="block" fill="solid" (click)="doAssist()">协助</ion-button>
+      </ion-col>
+      <ion-col [size]="queryData.assistId ? 4 : 3">
+        <ion-button color="primary" expand="block" fill="solid" (click)="doAgree()">通过</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

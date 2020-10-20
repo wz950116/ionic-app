@@ -1,0 +1,18 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+ion-list {
+  .information-item {
+    line-height: rem(50);
+    font-size: rem(26);
+    .label {
+      color: #999999;
+      white-space: pre-wrap;
+    }
+    .value {
+      text-align: right;
+      color: #666666;
+      white-space: pre-wrap;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+ion-item {
+  font-size: rem(28);
+}

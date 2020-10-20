@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/worker' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>我的单据</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar animated (ionInput)='onSearch($event)' [(ngModel)]="searchQuery" class="contactsSearchbar"
+    placeholder="搜索">
+  </ion-searchbar>
+  <ion-card *ngFor="let item of documrntList">
+    <ion-card-header>
+      <!-- <ion-text color="myPrimary" class="tit">{{item.title}}</ion-text> -->
+      <ion-text color="myPrimary" class="tit">收票登记（内贸）</ion-text>
+      <ion-text class="time">{{item.createDate ? item.createDate.slice(0, 10) : "" }}</ion-text>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="content">
+        合同号 : <span>{{item.receiveNo}}</span>
+      </div>
+      <div class="buttons">
+        <ion-button size="small" class="editButton" (click)="editClick(item)">
+          编辑
+        </ion-button>
+        <ion-button size="small" class="viewButton" (click)="viewClick(item)">
+          查看
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

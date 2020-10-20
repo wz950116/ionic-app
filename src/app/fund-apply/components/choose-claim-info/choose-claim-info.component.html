@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/fund-apply' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>预收款认领列表</ion-title>
+    <ion-buttons slot="end" (click)="onConfirm()">
+      确定
+    </ion-buttons>
+  </ion-toolbar>
+  <div>
+    <app-header-select [documentTypeList]="documentTypeList" (outer)="selectClick($event)"></app-header-select>
+  </div>
+</ion-header>
+<app-claim-search [type]="type" (search)="openSlideMenu($event)">
+</app-claim-search>
+
+<ion-content>
+  <ion-card *ngFor="let item of list; let i = index;">
+    <ion-item lines='none' class='top-info'>
+      <ion-button shape="round" slot="start" class='ion-card-title-type'>
+        {{ item.claimType | dataDictFormate : 'fundClaimType' }}
+      </ion-button>
+      <ion-button shape="round" slot="start" class='ion-card-title-type'>
+        {{ item.receiveType | dataDictFormate : 'settlementType' }}
+      </ion-button>
+      <ion-label>{{ item.claimNo }}</ion-label>
+      <ion-text slot="end" class='ion-card-title-date'>
+        {{ item.claimDate | dateFormate}}</ion-text>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-row class='middle-info'>
+        <ion-col size="12">
+          <div>{{ item.customerName }}</div>
+          <div>
+            收款单号：{{ item.receiveNo }}
+          </div>
+          <div>
+            认领金额(币种)：{{ item.claimAmount}}({{item.currency | dataDictFormate : 'currency'}})
+          </div>
+          <div>
+            使用金额(币种)：{{ item.usedAmount}}({{item.currency | dataDictFormate : 'currency'}})
+          </div>
+          <div>
+            使用状态：{{item.useStatus | dataDictFormate : 'useStatus'}}
+          </div>
+        </ion-col>
+        <ion-col size="12" class='ion-card-content-button'>
+          <ng-container>
+            <ion-button shape="round" (click)="detaile(item)">查看详情</ion-button>
+          </ng-container>
+          <ng-container *ngIf="!item.disabled; else elseTemplate">
+            <ion-button shape="round" (click)="onJoin(item)">立即加入</ion-button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ion-button shape="round" style="--opacity: 0.5;" (click)="offJoin(item)">取消加入</ion-button>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

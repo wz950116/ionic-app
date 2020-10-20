@@ -1,0 +1,40 @@
+<div class="login_wrapper">
+  <div text-center class="login">
+    <div class="logo">
+      <img src="assets/img/login/startup-logo.png" />
+    </div>
+    <h4 no-margin>
+      <ion-text>CTRM <span> V5.0</span></ion-text>
+    </h4>
+  </div>
+  <form>
+    <ion-list class="my-input">
+      <ion-item lines="full" required>
+        <ion-label>企业名 </ion-label>
+        <input type="text" name="enterpriseName" placeholder="请输入用户名" [(ngModel)]="enterpriseName" />
+      </ion-item>
+      <ion-item lines="full" required>
+        <ion-label>用户名 </ion-label>
+        <input type="text" name="account" placeholder="请输入用户名" [(ngModel)]="account" />
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label>密&nbsp;&nbsp;&nbsp;码</ion-label>
+        <input type="password" name="password" minlength='6' autocomplete="off" placeholder="请输入密码"
+          [(ngModel)]="password" />
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label>验证码</ion-label>
+        <input type="text" name="captcha" maxlength='4' minlength='4' placeholder="请输入验证码" [(ngModel)]="captcha" />
+        <ion-thumbnail slot="end">
+          <img [src]="captchaSrc" (click)="loadCaptcha()" />
+        </ion-thumbnail>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <ion-button expand="block" (click)="login()" color="myPrimary">
+    登&nbsp;录
+  </ion-button>
+</div>

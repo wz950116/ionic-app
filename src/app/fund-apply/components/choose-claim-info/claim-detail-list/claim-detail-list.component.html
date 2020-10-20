@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-title>详情</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>单据号</ion-text>
+      </ion-label>
+      {{formData.claimNo}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>认领日期</ion-text>
+      </ion-label>
+      {{formData.claimDate | dateFormate }}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>客户</ion-text>
+      </ion-label>
+      {{formData.customerName }}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>认领类型</ion-text>
+      </ion-label>
+      {{formData.claimType | dataDictFormate : 'fundClaimType' }}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>收款单号</ion-text>
+      </ion-label>
+      {{formData.receiveNo}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>收款方式</ion-text>
+      </ion-label>
+      {{formData.receiveType | dataDictFormate : 'settlementType'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>认领金额</ion-text>
+      </ion-label>
+      {{formData.claimAmount }}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>币种</ion-text>
+      </ion-label>
+      {{formData.currency | dataDictFormate:'currency'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>已使用金额</ion-text>
+      </ion-label>
+      {{formData.usedAmount}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>使用状态</ion-text>
+      </ion-label>
+      {{formData.useStatus | dataDictFormate:'useStatus'}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>业务机构</ion-text>
+      </ion-label>
+      {{formData.bizOrganName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>业务部门</ion-text>
+      </ion-label>
+      {{formData.bizDeptName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>业务员</ion-text>
+      </ion-label>
+      {{formData.bizEmployeeName}}
+    </ion-item>
+    <ion-item>
+      <ion-label class="label">
+        <ion-text>制单人</ion-text>
+      </ion-label>
+      {{formData.optEmployeeName}}
+    </ion-item>
+  </ion-list>
+</ion-content>

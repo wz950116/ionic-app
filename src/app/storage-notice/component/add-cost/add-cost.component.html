@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/storage-notice' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+    </ion-buttons>
+    <ion-title>添加费用</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label class='validate-label'>
+        <ion-text color="danger">结算单位*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.settlementCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of settlementList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class='validate-label'>
+        <ion-text color="danger">费用方向*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.feeDirection" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of feeDirection" [value]="item.value">{{ item.label }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class='validate-label'>
+        <ion-text color="danger">费用名称*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.feeCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of feeList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class='validate-label'>含税单价</ion-label>
+      <ion-input [(ngModel)]="formData.includeTaxPrice" slot='end' placeholder="请输入" type="number" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class='validate-label'>税率*</ion-label>
+      <ion-input [(ngModel)]="formData.taxRate" slot='end' placeholder="请输入" type="number" clearInput></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class='validate-label'>含税金额*</ion-label>
+      <ion-text>{{ formData.includeTaxPrice * formData.quantity || 0 }}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>进成本</ion-label>
+      <ion-checkbox [(ngModel)]="formData.costFlag" slot="end"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>进往来</ion-label>
+      <ion-checkbox [(ngModel)]="formData.intercourseFlag" slot="end"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-footer-bar">
+    <ion-button color="primary" expand="block" (click)="onConfirm()">确定</ion-button>
+  </ion-toolbar>
+</ion-footer>  

@@ -1,0 +1,22 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+.timeWrap {
+  ion-label {
+    display: block;
+    margin: 16px;
+  }
+}
+ion-content {
+  .screenWrap {
+    margin-top: 50px;
+    ion-label {
+      font-size: rem(26);
+    }
+    ion-input,
+    ion-select {
+      font-size: rem(26);
+      color: #666;
+    }
+  }
+}

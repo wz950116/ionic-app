@@ -1,0 +1,111 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+ion-header {
+  ion-toolbar {
+    --background: #2484cf;
+  }
+  .my-header-title {
+    color: #ffffff;
+    font-weight: 400;
+  }
+  .my-header-icon {
+    width: rem(38);
+    height: rem(38);
+    color: #ffffff;
+  }
+}
+
+ion-content {
+  --background: #ededed;
+  --padding-start: 0;
+  --padding-end: 0;
+  .my-content-card {
+    height: rem(180);
+    margin: rem(28) rem(36);
+    background: #ffffff;
+    border-radius: rem(10);
+
+    ion-row {
+      height: 100%;
+      .my-content-card-info {
+        .name {
+          font-size: rem(36);
+          color: #333333;
+        }
+        .dept {
+          display: inline-block;
+          margin-left: rem(10);
+          font-size: rem(28);
+          color: #666666;
+        }
+        .tell {
+          font-size: rem(26);
+          color: #666666;
+        }
+      }
+      .my-content-card-operate {
+        text-align: center;
+        .QR-code {
+          display: inline-block;
+          width: rem(30);
+          height: rem(30);
+          margin-top: rem(11);
+        }
+        .icon {
+          display: inline-block;
+          color: #2484cf;
+          width: rem(23);
+          height: rem(23);
+          vertical-align: top;
+          margin: rem(16) 0 0 rem(16);
+        }
+      }
+    }
+  }
+  ion-list {
+    border: 1px solid #e1e1e1;
+    border-top: none;
+    border-bottom: none;
+    background: #ededed;
+    margin-bottom: 0;
+    margin-top: rem(16);
+    .common_style {
+      img {
+        width: rem(38);
+        height: rem(38);
+      }
+      ion-label {
+        font-size: rem(28);
+        color: #666666;
+      }
+    }
+    .about_ctrm {
+      ion-label {
+        .version {
+          float: right;
+          margin-top: rem(6);
+          color: #999999;
+        }
+      }
+    }
+  }
+}
+
+.my-logout {
+  width: 100%;
+  height: rem(90);
+  line-height: rem(90);
+  text-align: center;
+  background: #ffffff;
+  font-size: rem(34);
+  color: #666666;
+  margin-top: rem(36);
+}

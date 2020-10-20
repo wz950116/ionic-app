@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/mine' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+    </ion-buttons>
+    <ion-title>个人信息</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>头像</ion-label>
+      <ion-thumbnail slot="end">
+        <img src="assets/img/mine/header.jpg" />
+      </ion-thumbnail>
+    </ion-item>
+    <ion-item>
+      <ion-label>账号</ion-label>
+      <span slot="end" class="item_info">{{ users.account }}</span>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>姓名</ion-label>
+      <span slot="end" class="item_info">{{ users.name }}</span>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item lines="none">
+      <ion-label>登录时间</ion-label>
+      <span slot="end" class="item_info">{{ users.timeNow }}</span>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>机构</ion-label>
+      <span slot="end" class="item_info">{{ users.userOrganCode }}</span>
+    </ion-item>
+    <ion-item>
+      <ion-label>部门</ion-label>
+      <span slot="end" class="item_info">{{ users.userDeptCode }}</span>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>员工</ion-label>
+      <span slot="end" class="item_info">{{ users.userEmployeeCode }}</span>
+    </ion-item>
+  </ion-list>
+</ion-content>

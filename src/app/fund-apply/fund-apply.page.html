@@ -1,0 +1,479 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/worker' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>付款申请</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text>单据号</ion-text>
+      </ion-label>
+      <ion-input type="text" disabled placeholder="请输入信息">{{formData.applyNo}}</ion-input>
+    </ion-item>
+    <ion-item detail lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">申请日期 *</ion-text>
+      </ion-label>
+      <ion-datetime [(ngModel)]="formData.applyDate" displayFormat="YYYY-MM-DD" placeholder="请选择日期" doneText="确定"
+        cancelText="取消"></ion-datetime>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">客户 *</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.customerNo" okText="确定" cancelText="取消" (ionChange)='customerNoChange($event)'>
+        <ion-select-option *ngFor="let item of customerList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">申请类型 *</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.applyType" okText="确定" cancelText="取消" (ionChange)='applyTypeChange($event)'>
+        <ion-select-option *ngFor="let item of fundApplyTypeList" [value]="item.value">{{ item.label }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item detail lines="full" *ngIf="formData.applyType ==='A'" (click)="contractNoSelect()">
+      <ion-label class="label">
+        <ion-text>采购合同</ion-text>
+      </ion-label>
+      {{formData.contractNo}}
+    </ion-item>
+    <ion-item detail lines="full" *ngIf="formData.applyType ==='RA'" (click)="claimNoSelect()">
+      <ion-label class="label">
+        <ion-text color="danger">预收款单号*</ion-text>
+      </ion-label>
+      {{formData.claimNo}}
+    </ion-item>
+    <ion-item lines="full" *ngIf="formData.applyType ==='LOT'">
+      <ion-label class="label">
+        <ion-text color="danger">业务类别 *</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.businessType" okText="确定" cancelText="取消"
+        (ionChange)='businessTypeChange($event)'>
+        <ion-select-option *ngFor="let item of businessTypeList" [value]="item.value">{{ item.label }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">申请金额 *</ion-text>
+      </ion-label>
+      <ion-input type="text" disabled *ngIf="formData.applyType ==='LOT'" laceholder="请输入金额信息"
+        [(ngModel)]="formData.applyAmount"></ion-input>
+      <ion-input type="text" *ngIf="formData.applyType !=='LOT'" laceholder="请输入金额信息" [(ngModel)]="formData.applyAmount"
+        (ionChange)='applyAmountChange(formData.applyAmount)'></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">币种*</ion-text>
+      </ion-label>
+      <ion-select disabled [(ngModel)]="formData.currency" *ngIf="formData.applyType ==='RA'" okText="确定"
+        cancelText="取消">
+        <ion-select-option *ngFor="let item of currencyList" [value]="item.value">{{ item.label }}</ion-select-option>
+      </ion-select>
+      <ion-select [(ngModel)]="formData.currency" *ngIf="formData.applyType !=='RA'" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of currencyList" [value]="item.value">{{ item.label }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">付款方式*</ion-text>
+      </ion-label>
+      <ion-select multiple="true" [(ngModel)]="formData.paymentTypeList" okText="确定" cancelText="取消"
+        (ionChange)='paymentTypeChange($event)'>
+        <ion-select-option *ngFor="let item of paymentTypeList" [value]="item.value">{{ item.label }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text>最迟付款日期</ion-text>
+      </ion-label>
+      <ion-datetime [(ngModel)]="formData.latestPaymentDate" displayFormat="YYYY-MM-DD" placeholder="请选择日期"
+        doneText="确定" cancelText="取消"></ion-datetime>
+    </ion-item>
+    <ion-item detail lines="full" (click)="custCreditNSelect()">
+      <ion-label class="label">
+        <ion-text> 临时授信</ion-text>
+      </ion-label>
+      {{formData.custCreditNo}}
+    </ion-item>
+
+    <!-- 商品信息 -->
+    <ion-item lines="full" *ngIf="formData.applyType==='LOT'" class="tabclass" (click)="showFlag=!showFlag">
+      <ion-label>付款申请详细信息</ion-label>
+      <!-- [queryParams]="formData"-->
+      <!-- <ng-container *ngIf="fundApplyDetailDtoList.length!==0">
+        <ion-button (click)="showFlag=!showFlag" expand="block" fill="clear" shape="round" *ngIf="!showFlag">
+          展开
+        </ion-button>
+        <ion-button (click)="showFlag=!showFlag" expand="block" fill="clear" shape="round" *ngIf="showFlag">
+          收起
+        </ion-button>
+      </ng-container> -->
+      <ion-button slot="end" color="myPrimary" (click)="detailonClick()">
+        <ion-icon name="ios-add"></ion-icon>
+        选择批次
+      </ion-button>
+    </ion-item>
+    <!-- 商品添加 -->
+    <ion-row *ngIf="fundApplyDetailDtoList.length !== 0 && showFlag" class="detailClass">
+      <ion-col size="12" style=" padding: 0;">
+        <ion-card *ngFor="let item of fundApplyDetailDtoList">
+          <ion-card-header>
+            <ion-row>
+              <ion-col size="11">
+                <!-- <ion-card-title slot="">发票信息</ion-card-title> -->
+              </ion-col>
+              <ion-col size="1" style="text-align: right;" *ngIf="optype!=='view'">
+                <ion-icon name="ios-close-circle" (click)="remove(item)"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label>
+                  合同号
+                </ion-label>
+                {{item.contractNo}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  批次号
+                </ion-label>
+                {{item.lotNo}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  批次类型
+                </ion-label>
+                {{item.lotType | dataDictFormate: 'bizCode' }}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  资金用途
+                </ion-label>
+                <ion-select [(ngModel)]="item.fundUseType" placeholder="请选择" okText="确定" cancelText="取消"
+                  color="myPrimary">
+                  <ion-select-option [value]="item.value" *ngFor="let item of fundUseTypeList">{{item.label}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  商品
+                </ion-label>
+                {{item.productName}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  品牌
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入发票名称" [(ngModel)]="item.brand"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  产地
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入发票名称" [(ngModel)]="item.spec"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  规格
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入发票名称" [(ngModel)]="item.origin"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  材质
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入发票名称" [(ngModel)]="item.productKeyAttr01"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  物资主属性2
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入发票名称" [(ngModel)]="item.productKeyAttr02"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  批次计量数量
+                </ion-label>
+                {{item.lotMeasurementQuantity}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  批次价格
+                </ion-label>
+                {{item.lotPrice}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  原币金额
+                </ion-label>
+                {{item.originalAmount}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  货值
+                </ion-label>
+                {{item.goodsAmount}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  申请中金额
+                </ion-label>
+                {{item.applyingAmount}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  已收已付金额
+                </ion-label>
+                {{item.hasPaymentAmount}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  申请金额
+                </ion-label>
+                <ion-input required type="number" (ionChange)='onApplyAmountChange(item)' placeholder="请输入金额信息"
+                  [(ngModel)]="item.applyAmount"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  备注
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入备注信息" [(ngModel)]="item.remark"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- 商品信息 -->
+    <ion-item lines="full" class="tabclass" (click)="showFlag2 = !showFlag2">
+      <ion-label>付款方式信息</ion-label>
+      <ng-container *ngIf="fundApplyPaymentDtoList.length!==0">
+        <ion-button expand="block" fill="clear" shape="round" *ngIf="!showFlag2">
+          展开
+        </ion-button>
+        <ion-button expand="block" fill="clear" shape="round" *ngIf="showFlag2">
+          收起
+        </ion-button>
+      </ng-container>
+    </ion-item>
+    <!-- 付款方式信息 -->
+    <ion-row *ngIf="fundApplyPaymentDtoList.length !== 0 && showFlag2">
+      <ion-col size="12" style=" padding: 0;">
+        <ion-card *ngFor="let item of fundApplyPaymentDtoList">
+          <ion-card-header>
+            <ion-row>
+              <ion-col size="11">
+                <!-- <ion-card-title slot="">发票信息</ion-card-title> -->
+              </ion-col>
+              <!-- <ion-col size="1" style="text-align: right;" *ngIf="optype!=='view'">
+                <ion-icon name="ios-close-circle" (click)="remove(item)"></ion-icon>
+              </ion-col> -->
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label>
+                  付款方式*
+                </ion-label>
+                {{item.paymentType | dataDictFormate: 'settlementTypePay'}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  付款比例*
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入规格" [(ngModel)]="item.paymentRate"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  申请金额*
+                </ion-label>
+                {{item.applyAmount}}
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  备注
+                </ion-label>
+                <ion-input required type="text" placeholder="请输入备注信息" [(ngModel)]="item.remark"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- 商品信息 -->
+    <ion-item lines="full" class="tabclass" (click)="showFlag3=!showFlag3">
+      <ion-label>有关预付款申请信息</ion-label>
+      <ng-container *ngIf="fundAdvApplyDtoList.length!==0">
+        <ion-button expand="block" fill="clear" shape="round" *ngIf="!showFlag3">
+          展开
+        </ion-button>
+        <ion-button expand="block" fill="clear" shape="round" *ngIf="showFlag3">
+          收起
+        </ion-button>
+      </ng-container>
+
+    </ion-item>
+    <!-- 有关预付款申请信息 -->
+    <ng-container *ngIf="fundAdvApplyDtoList.length !== 0 && showFlag3">
+      <ion-row>
+        <ion-col size="12" style=" padding: 0;">
+          <ion-card *ngFor="let item of fundAdvApplyDtoList">
+            <ion-card-content>
+              <ion-list lines="none">
+                <ion-item>
+                  <ion-label>
+                    单据号
+                  </ion-label>
+                  {{item.applyNo}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    申请日期
+                  </ion-label>
+                  {{item.applyDate | dateFormate}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    申请金额
+                  </ion-label>
+                  {{item.applyAmount}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    币种
+                  </ion-label>
+                  {{item.currency | dataDictFormate: 'currency'}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    确认状态
+                  </ion-label>
+                  {{item.confirmStatus | dataDictFormate: 'confirmStatus'}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    确认金额
+                  </ion-label>
+                  {{item.confirmAmount}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    使用状态
+                  </ion-label>
+                  {{item.useStatus | dataDictFormate: 'useStatus'}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    使用金额
+                  </ion-label>
+                  {{item.usedAmount}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    业务机构
+                  </ion-label>
+                  {{item.bizOrganName}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    业务部门
+                  </ion-label>
+                  {{item.bizDeptName}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    业务员
+                  </ion-label>
+                  {{item.bizEmployeeName}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    制单人
+                  </ion-label>
+                  {{item.optEmployeeName}}
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    备注
+                  </ion-label>
+                  <ion-input required type="text" placeholder="请输入备注信息" [(ngModel)]="item.remark"></ion-input>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">业务机构*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.bizOrganCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of bizOrganList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">业务部门*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.bizDeptCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of bizDeptList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">申请人*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.bizEmployeeCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of bizEmployeeList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="label">
+        <ion-text color="danger">制单人*</ion-text>
+      </ion-label>
+      <ion-select [(ngModel)]="formData.optEmployeeCode" okText="确定" cancelText="取消">
+        <ion-select-option *ngFor="let item of bizEmployeeList" [value]="item.code">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="remark">
+      <ion-col size="12">
+        <ion-label>备注</ion-label>
+      </ion-col>
+      <ion-col size="12">
+        <ion-textarea rows="4" cols='24' [(ngModel)]="formData.remark" placeholder="请输入备注信息"></ion-textarea>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-footer-bar">
+    <ion-row>
+      <ion-col [size]="6">
+        <ion-button color="medium" fill="solid" (click)="doCancle()">取消</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="danger" fill="solid" (click)="doSave()">保存</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

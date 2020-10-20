@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-img src="assets/img/worker/banner.png"></ion-img>
+  <div class="introduce">大宗商品交易和风险管理系统 V5.0</div>
+</ion-header>
+
+<ion-content>
+  <ion-row class="content-items">
+    <ion-col *ngFor="let item of list" [routerLink]="[item.routePath]" class="content-item" size="3"
+      [ngClass]="{ opacity: item.disabled }">
+      <div class="content-item-img-wrap">
+        <ion-img [src]="item.imgSrc" class="content-item-img"></ion-img>
+        <span class="content-item-tip" [hidden]="!item.count">
+          {{ item.count }}
+        </span>
+      </div>
+      <ion-label position="stacked" class="content-item-text">{{
+        item.title
+      }}</ion-label>
+    </ion-col>
+  </ion-row>
+</ion-content>

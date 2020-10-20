@@ -1,0 +1,10 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+
+ion-content {
+  ion-img, ion-button {
+    width: 70%;
+    margin: rem(40) auto;
+  }
+}

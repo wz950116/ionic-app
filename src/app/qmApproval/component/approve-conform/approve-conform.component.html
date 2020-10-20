@@ -1,0 +1,25 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>选择审核人</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item *ngFor="let items of listData">
+      <ion-label>{{items.name}}</ion-label>
+      <ion-select [(ngModel)]="items.account" okText="选择" cancelText="取消">
+        <ion-select-option *ngFor="let item of items.list" [value]='item.id'>{{item.firstName}}</ion-select-option>>
+      </ion-select>
+    </ion-item>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" class="ion-no-margin" (click)="onSave()">确认</ion-button>
+    </div>
+  </ion-list>
+</ion-content>

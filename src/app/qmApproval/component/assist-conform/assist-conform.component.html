@@ -1,0 +1,47 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{ data.moduleName }}协助审批</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list lines="none" class="content_list">
+    <ion-item class="select">
+      <ion-label class="label">选择协助人</ion-label>
+      <ion-select
+        [(ngModel)]="formData.assistant"
+        okText="选择"
+        cancelText="取消"
+        class="input"
+      >
+        <ion-select-option *ngFor="let item of listData" [value]="item.code">{{
+          item.name
+        }}</ion-select-option
+        >>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="submitter">
+      <ion-label position="stacked" class="label">协助信息</ion-label>
+      <ion-textarea
+        [(ngModel)]="formData.assistMsg"
+        class="input"
+      ></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <ion-button
+      expand="block"
+      type="submit"
+      class="ion-no-margin"
+      (click)="onSave()"
+      >确认</ion-button
+    >
+  </div>
+</ion-content>

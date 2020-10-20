@@ -1,0 +1,172 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+
+.opacity {
+  opacity: 0.5;
+}
+
+// 头部左右统一间距/字号
+ion-header {
+  ion-title {
+    font-size: rem(32);
+    font-weight: normal;
+  }
+  ion-label {
+    font-size: rem(30);
+    font-weight: normal;
+  }
+  .button-inner {
+    font-size: rem(22);
+  }
+}
+
+// 页面两边间距---统一
+ion-header ion-toolbar,
+ion-footer {
+  --padding-start: 0.94rem;
+  --padding-end: 0.94rem;
+}
+
+// ion-menu
+ion-menu {
+  --width: 18.5rem;
+  ion-content {
+    --padding-top: rem(20);
+    position: relative;
+    --padding-start: 0.94rem;
+    --padding-end: 0.94rem;
+    .screenWrap {
+      h3 {
+        color: #666;
+        font-size: rem(28);
+      }
+      .time {
+        width: 100%;
+        span {
+          display: inline-block;
+          background: #f1f1f1;
+          border: 1px solid #d3d3d3;
+          color: #666;
+          font-size: rem(26);
+          min-width: rem(170);
+          line-height: rem(60);
+          text-align: center;
+          padding: 0 rem(20);
+          margin: 0 rem(5) rem(20) rem(5);
+          height: rem(60);
+          &:last-of-type {
+            margin-right: 0;
+          }
+          &:first-of-type {
+            margin-left: 0;
+          }
+        }
+        .slectClass {
+          background: #b7defc;
+          border: 1px solid #2484cf;
+        }
+      }
+      .datatime {
+        width: 100%;
+        height: rem(60);
+        display: flex;
+        ion-datetime {
+          flex: 1;
+          border: 1px solid #d3d3d3;
+          --padding-top: 0;
+          --padding-bottom: 0;
+          padding-right: rem(10);
+          line-height: rem(60);
+          font-size: rem(26);
+          background: #f1f1f1 url('./assets/img/time.png') no-repeat right
+            center / rem(40) rem(40);
+        }
+      }
+      .number_input {
+        input {
+          width: 100%;
+          height: rem(60);
+          background: #f1f1f1;
+          border: 1px solid #d3d3d3;
+          padding-left: 5px;
+          font-size: rem(26);
+        }
+      }
+      .number_select {
+        ion-select {
+          width: 100%;
+          height: rem(60);
+          background: #f1f1f1;
+          border: 1px solid #d3d3d3;
+          padding-left: 5px;
+          font-size: rem(26);
+        }
+      }
+    }
+    .screen_btn {
+      width: 100%;
+      height: rem(100);
+      position: absolute;
+      right: 0;
+      padding: 0 rem(20);
+      bottom: rem(50);
+      text-align: right;
+      button {
+        width: rem(162);
+        height: rem(60);
+        background: #2484cf;
+        color: #fff;
+        font-size: rem(28);
+        &:first-of-type {
+          background: #8ac2ed;
+          border-top-left-radius: 50px;
+          border-bottom-left-radius: 50px;
+        }
+        &:last-of-type {
+          border-top-right-radius: 50px;
+          border-bottom-right-radius: 50px;
+        }
+      }
+    }
+  }
+}
+// 搜索框
+.contactsSearchbar {
+  .searchbar-input-container.sc-ion-searchbar-ios {
+    height: rem(65);
+    input {
+      border-radius: 50px;
+    }
+  }
+}
+// ios 弹出选择框
+.alert-title.sc-ion-alert-ios {
+  margin-top: 0;
+}
+.alert-head.sc-ion-alert-ios {
+  padding-bottom: 12px;
+}
+.alert-message.sc-ion-alert-ios:empty {
+  padding-bottom: 0;
+}
+.alert-button.sc-ion-alert-ios {
+  font-size: rem(30);
+}
+
+ion-toast {
+  --width: 90%;
+  --border-radius: 5px;
+}

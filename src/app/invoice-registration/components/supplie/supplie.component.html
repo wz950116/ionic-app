@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/invoice-registration' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>供应商选择</ion-title>
+    <ion-buttons slot="end" (click)="onConfirm()">
+      确定
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="supplierCode">
+      <ion-list-header>
+        <ion-searchbar class="contactsSearchbar" (ionInput)="checkInput($event)" animated debounce="500"
+          placeholder="搜索"></ion-searchbar>
+      </ion-list-header>
+
+      <ng-container *ngFor="let item of supplierList">
+        <ion-item *ngIf="item.show" lines="full">
+          <ion-label>{{ item.name }}</ion-label>
+          <!-- <ion-text slot="end">{{ item.code }}</ion-text> -->
+          <ion-radio [value]="item.code" slot="end"></ion-radio>
+        </ion-item>
+      </ng-container>
+    </ion-radio-group>
+  </ion-list>
+
+  <p *ngIf="refreshComplete" style="text-align: center;color: #999;">没有更多了...</p>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="刷新" refreshingSpinner="circles" refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>

@@ -1,0 +1,18 @@
+<ion-menu swipe-gesture="true" side="end" type="overlay" menuId="mine">
+  <ion-content>
+    <div class="screenWrap">
+      <ion-list lines='none'>
+        <ion-item>
+          <ion-label position="stacked">单据号</ion-label>
+          <ion-input [(ngModel)]="formData.docNo"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="screen_btn">
+      <button (click)="screenReset()">重置</button>
+      <button (click)="screenConfirm()">确定</button>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>

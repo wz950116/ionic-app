@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/mine' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+    </ion-buttons>
+    <ion-title>修改密码</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>用户名</ion-label>
+      <input
+        required
+        type="text"
+        placeholder="请输入用户名"
+        [(ngModel)]="account"
+      />
+    </ion-item>
+    <ion-item>
+      <ion-label>原密码</ion-label>
+      <input
+        required
+        type="{{ showPwd ? 'text' : 'password' }}"
+        placeholder="请输入原密码"
+        [(ngModel)]="oldPassword"
+      />
+    </ion-item>
+    <ion-item>
+      <ion-label>新密码</ion-label>
+      <input
+        required
+        type="{{ showPwd ? 'text' : 'password' }}"
+        placeholder="请输入新密码，密码至少8位"
+        [(ngModel)]="newPassword"
+      />
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>确认密码</ion-label>
+      <input
+        required
+        type="{{ showPwd ? 'text' : 'password' }}"
+        placeholder="请确认新密码"
+        [(ngModel)]="confirmPwd"
+      />
+    </ion-item>
+  </ion-list>
+
+  <ion-button
+    size="large"
+    class="save"
+    color="myPrimary"
+    (click)="commitChangePwd()"
+    >保 存</ion-button
+  >
+  <div class="show_pwd">
+    <ion-checkbox [(ngModel)]="showPwd"></ion-checkbox>
+    <ion-label>显示密码</ion-label>
+  </div>
+</ion-content>

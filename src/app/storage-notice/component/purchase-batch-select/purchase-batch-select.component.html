@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/storage-notice' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+    </ion-buttons>
+    <ion-title>采购批次选择</ion-title>
+    <ion-buttons slot="end" (click)="onConfirm()">
+      确定
+    </ion-buttons>
+  </ion-toolbar>
+  <div>
+    <app-header-select [documentTypeList]="documentTypeList" (outer)="selectClick($event)"></app-header-select>
+  </div>
+</ion-header>
+<app-search [type]="type" (search)="openSlideMenu($event)"></app-search>
+
+<ion-content>
+  <ion-card *ngFor="let item of list; let i = index;">
+    <ion-item lines='none' class='top-info'>
+      <ion-button shape="round" slot="start" class='ion-card-title-type'>{{  type === '1' ? (item.tradeType | dataDictFormate : 'tradeType') : i + 1 }}</ion-button>
+      <ion-label>{{ item.supplierNames }}</ion-label>
+      <ion-text slot="end" class='ion-card-title-date'>{{ type === '1' ? (item.signDate | dateFormate) : (item.ladingDate | dateFormate) }}</ion-text>
+    </ion-item>
+  
+    <ion-card-content>
+      <ion-row class='middle-info'>
+        <ion-col size="8">
+          <div>{{ item.contractNo }}</div>
+          <div>{{ type === '1' ? item.lotNo : item.ladingBillNo }}</div>
+          <div>{{ item.productName }}：{{ item.brand }}-{{ item.origin }}-{{ item.spec }}</div>
+          <div>{{ item.productQuantity || item.restMeasurementQuantity }}{{ item.productUnitCode | dataDictFormate: 'goodsUnit' }}（未执行数量{{ item.rmnPrdQty || item.restQuantity }}）</div>
+        </ion-col>
+        <ion-col size="4" class='ion-card-content-button'>
+          <ng-container *ngIf="!item.disabled; else elseTemplate">
+            <ion-button shape="round" (click)="onJoin(item)">立即加入</ion-button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ion-button shape="round" style="--opacity: 0.5;" (click)="offJoin(item)">取消加入</ion-button>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+      <ion-row class='bottom-info'>
+        <ion-col size="4">
+          <ion-input [(ngModel)]="item.inQuantity" *ngIf="!item.inQuantityEdit" (ionBlur)='inQuantitySet(item)' type="number"></ion-input>
+          <ion-text *ngIf="item.inQuantityEdit">{{ item.inQuantity }}</ion-text>
+          <ion-text class='unit-amount'>{{ item.productUnitCode | dataDictFormate: 'goodsUnit' }}</ion-text>
+          <img *ngIf="item.inQuantityEdit" src="assets/img/mine/edit.png" (click)="item.inQuantityEdit = !item.inQuantityEdit" />
+          <div>数量</div>
+        </ion-col>
+        <ion-col size="4">
+          <ion-input [(ngModel)]="item.measurementQuantity" *ngIf="!item.measurementQuantityEdit" (ionBlur)='measurementQuantitySet(item)' type="number"></ion-input>
+          <ion-text *ngIf="item.measurementQuantityEdit">{{ item.measurementQuantity }}</ion-text>
+          <ion-text class='unit-amount'>{{ item.productUnitCode | dataDictFormate: 'goodsUnit' }}</ion-text>
+          <img *ngIf="item.measurementQuantityEdit" src="assets/img/mine/edit.png" (click)="item.measurementQuantityEdit = !item.measurementQuantityEdit" />
+          <div>计量数量</div>
+        </ion-col>
+        <ion-col size="4" class='unit-price' *ngIf="type === '3'">
+          <ion-text>￥</ion-text>
+          <ion-input [(ngModel)]="item.includeTaxPrice" *ngIf="!item.includeTaxPriceEdit" (ionBlur)='item.includeTaxPriceEdit = true' type="number"></ion-input>
+          <ion-text *ngIf="item.includeTaxPriceEdit">{{ item.includeTaxPrice }}</ion-text>
+          <img *ngIf="item.includeTaxPriceEdit" src="assets/img/mine/edit.png" (click)="item.includeTaxPriceEdit = !item.includeTaxPriceEdit" />
+          <div>单价</div>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

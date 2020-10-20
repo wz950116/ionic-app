@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+      操作成功
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img src="/assets/img/success_operate.png"></ion-img>
+
+  <ion-button color="primary" expand="block" [routerLink]="[ '/document' ]">我的单据</ion-button>
+  <ion-button color="primary" expand="block" [routerLink]="[ '/storage-notice' ]">继续开单</ion-button>
+</ion-content>

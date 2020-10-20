@@ -1,0 +1,39 @@
+<ion-menu swipe-gesture="true" side="end" type="overlay" menuId="mine">
+  <ion-content>
+    <div class="screenWrap">
+      <div class="timeWrap">
+        <ion-label position="stacked">签订日期</ion-label>
+        <div class="datatime">
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" mode="ios" placeholder="开始时间"
+            (ionChange)="changeStartTime($event)" [(ngModel)]="formData.signDateFrom"></ion-datetime>
+          &nbsp;--&nbsp;
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" mode="ios" placeholder="结束时间"
+            (ionChange)="changeEndTime($event)" [(ngModel)]="formData.signDateTo">
+          </ion-datetime>
+        </div>
+      </div>
+      <ion-item lines="full">
+        <ion-label position="stacked">{{ type === '1' ? '批次号' : '提单号' }}</ion-label>
+        <ion-input [(ngModel)]="formData.lotNo"></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="stacked">供应商</ion-label>
+        <ion-select [(ngModel)]="formData.supplierCode" okText="确定" cancelText="取消">
+          <ion-select-option *ngFor="let item of supplierList" [value]="item.code">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="stacked">商品名称</ion-label>
+        <ion-select [(ngModel)]="formData.productCode" okText="确定" cancelText="取消">
+          <ion-select-option *ngFor="let item of productList" [value]="item.code">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="screen_btn">
+      <button (click)="screenReset()">重置</button>
+      <button (click)="screenConfirm()">确定</button>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>

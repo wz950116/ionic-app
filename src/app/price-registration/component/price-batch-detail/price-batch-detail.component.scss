@@ -1,0 +1,17 @@
+@function rem($px) {
+  @return ($px / 32) * 1rem;
+}
+ion-list {
+  ion-item {
+    font-size: rem(26);
+    ion-label {
+      color: #999999;
+      white-space: pre-wrap;
+    }
+    ion-input {
+      text-align: right;
+      color: #666666;
+      white-space: pre-wrap;
+    }
+  }
+}

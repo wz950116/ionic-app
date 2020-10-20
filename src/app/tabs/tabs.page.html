@@ -1,0 +1,33 @@
+<ion-tabs #tabs (ionTabsDidChange)="tabsDidChange">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="worker">
+      <app-svg-icon [iconName]="activeTab === 'worker' ? '#workerActive' : '#worker'"></app-svg-icon>
+      <ion-label class="tab_button_text">工作台</ion-label>
+      <span class="content-item-tip" [hidden]="approvalCount === 0 || approvalCount === null">{{ approvalCount }}</span>
+    </ion-tab-button>
+
+    <ion-tab-button tab="news">
+      <app-svg-icon [iconName]="activeTab === 'news' ? '#newsActive' : '#news'"></app-svg-icon>
+      <ion-label class="tab_button_text">消息</ion-label>
+      <span class="content-item-tip" [hidden]="true">2</span>
+    </ion-tab-button>
+
+    <ion-tab-button tab="warning" disabled>
+      <app-svg-icon [iconName]="activeTab === 'warning' ? '#warningActive' : '#warning'"></app-svg-icon>
+      <ion-label class="tab_button_text">预警</ion-label>
+      <span class="content-item-tip" [hidden]="true">2</span>
+    </ion-tab-button>
+
+    <ion-tab-button tab="report">
+      <app-svg-icon [iconName]="activeTab === 'report' ? '#reportActive' : '#report'"></app-svg-icon>
+      <ion-label class="tab_button_text">报表</ion-label>
+      <span class="content-item-tip" [hidden]="true">2</span>
+    </ion-tab-button>
+
+    <ion-tab-button tab="mine">
+      <app-svg-icon [iconName]="activeTab === 'mine' ? '#mineActive' : '#mine'"></app-svg-icon>
+      <ion-label class="tab_button_text">我</ion-label>
+      <span class="content-item-tip" [hidden]="true">2</span>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

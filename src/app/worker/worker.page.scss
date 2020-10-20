@@ -1,0 +1,46 @@
+@import "../../theme/px2rem.scss";
+
+.introduce {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: rem(80);
+  line-height: rem(80);
+  text-indent: rem(32);
+  background: rgba(0, 0, 0, 0.3);
+  font-size: rem(28);
+  color: #ffffff;
+}
+
+.content-items {
+  padding: rem(32);
+  .content-item {
+    margin-bottom: rem(24);
+    text-align: center;
+    outline: none;
+    .content-item-img-wrap {
+      width: rem(90);
+      margin: 0 auto rem(8);
+      position: relative;
+      .content-item-img {
+        width: rem(90);
+      }
+      .content-item-tip {
+        position: absolute;
+        right: rem(-15);
+        top: rem(-15);
+        padding: rem(4) rem(10);
+        text-align: center;
+        border-radius: 50%;
+        background: red;
+        color: #ffffff;
+        font-size: rem(12);
+      }
+    }
+    .content-item-text {
+      color: #666666;
+      font-size: rem(22);
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/fund-apply' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>临时授信选择</ion-title>
+    <ion-buttons slot="end" (click)="onConfirm()">
+      确定
+    </ion-buttons>
+  </ion-toolbar>
+  <div>
+    <app-header-select [documentTypeList]="documentTypeList"></app-header-select>
+  </div>
+</ion-header>
+<app-search [type]="type" (search)="openSlideMenu($event)"></app-search>
+
+<ion-content>
+  <ion-card *ngFor="let item of productList; let i = index;">
+    <ion-item lines='none' class='top-info'>
+      <ion-button shape="round" slot="start" class='ion-card-title-type'>
+        {{ item.creditType |dataDictFormate:'creditType'}}
+      </ion-button>
+      <ion-label>{{ item.docNo }}</ion-label>
+    </ion-item>
+    <ion-card-content>
+      <ion-row class='middle-info'>
+        <ion-col size="12">
+          <div>
+            {{ item.custName }}
+          </div>
+          <div>
+            单据类型: {{ item.docType | dataDictFormate:'custCreditDocType' }}
+          </div>
+          <div>
+            授信类型/方式:
+            {{ item.creditType |dataDictFormate:'creditType'}}/{{ item.creditWay | dataDictFormate:'creditWay'}}
+          </div>
+          <div>
+            额度类型: {{ item.creditQuotaType | dataDictFormate:'creditQuotaType'}}
+          </div>
+          <div>
+            授信额度(元): {{ item.creditQuota }}
+          </div>
+        </ion-col>
+        <ion-col size="12" class='ion-card-content-button'>
+          <ng-container *ngIf="!item.disabled; else elseTemplate">
+            <ion-button shape="round" (click)="onJoin(item)">立即加入</ion-button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ion-button shape="round" style="--opacity: 0.5;" (click)="offJoin(item)">取消加入</ion-button>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

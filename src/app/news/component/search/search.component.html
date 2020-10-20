@@ -1,0 +1,76 @@
+<ion-menu swipe-gesture="true" side="end" type="overlay" menuId="mine">
+  <ion-content>
+    <div class="screenWrap">
+      <div class="timeWrap">
+        <h3>时间</h3>
+        <!-- <div class="time">
+          <span
+            (click)="selectTime($event)"
+            id="1"
+            [ngClass]="{ slectClass: '1' === isSelectspan }"
+          >
+            今天
+          </span>
+          <span
+            id="2"
+            (click)="selectTime($event)"
+            [ngClass]="{ slectClass: '2' === isSelectspan }"
+            >昨天</span
+          >
+          <span
+            id="3"
+            (click)="selectTime($event)"
+            [ngClass]="{ slectClass: '3' === isSelectspan }"
+            >上一周</span
+          >
+        </div> -->
+        <div class="datatime">
+          <ion-datetime
+            displayFormat="YYYY-MM-DD"
+            cancelText="取消"
+            doneText="确定"
+            mode="ios"
+            placeholder="开始时间"
+            (ionChange)="changeStartTime($event)"
+            [(ngModel)]="formData.sendDateFrom"
+          ></ion-datetime>
+          &nbsp;--&nbsp;
+          <ion-datetime
+            displayFormat="YYYY-MM-DD"
+            cancelText="取消"
+            doneText="确定"
+            mode="ios"
+            placeholder="结束时间"
+            (ionChange)="changeEndTime($event)"
+            [(ngModel)]="formData.sendDateTo"
+          >
+          </ion-datetime>
+        </div>
+      </div>
+      <h3>消息级别</h3>
+      <div class="time">
+        <span
+          *ngFor="let item of msgClassType"
+          [id]="item.key"
+          (click)="spanClick(item.value)"
+          [ngClass]="{ slectClass: item.key === isSelect }"
+          >{{ item.label }}</span
+        >
+      </div>
+      <div class="number_input">
+        <h3>消息标题</h3>
+        <input
+          type="text"
+          placeholder="消息标题查询"
+          [(ngModel)]="formData.msgTitle"
+        />
+      </div>
+    </div>
+    <div class="screen_btn">
+      <button (click)="screenReset()">重置</button>
+      <button (click)="screenConfirm()">确定</button>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>

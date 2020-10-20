@@ -1,0 +1,53 @@
+<ion-menu swipe-gesture="true" side="end" type="overlay" menuId="mine">
+  <ion-content>
+    <div class="screenWrap">
+      <div class="timeWrap">
+        <ion-label position="stacked">签订日期</ion-label>
+        <div class="datatime">
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" mode="ios" placeholder="开始时间"
+            (ionChange)="changeStartTime($event)" [(ngModel)]="formData.signDateFrom"></ion-datetime>
+          &nbsp;--&nbsp;
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" mode="ios" placeholder="结束时间"
+            (ionChange)="changeEndTime($event)" [(ngModel)]="formData.signDateTo">
+          </ion-datetime>
+        </div>
+      </div>
+      <ion-list lines='none'>
+        <ion-item class="number_input">
+          <ion-label position="stacked">合同号</ion-label>
+          <ion-input [(ngModel)]="formData.contractNo"></ion-input>
+        </ion-item>
+        <ion-item class="number_input">
+          <ion-label position="stacked">批次号</ion-label>
+          <ion-input [(ngModel)]="formData.lotNo"></ion-input>
+        </ion-item>
+        <ion-item class="number_select">
+          <ion-label position="stacked">商品名称</ion-label>
+          <ion-select [(ngModel)]="formData.productCode" okText="确定" cancelText="取消">
+            <ion-select-option *ngFor="let item of productList" [value]="item.code">{{ item.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="number_select">
+          <ion-label position="stacked">贸易类型</ion-label>
+          <ion-select [(ngModel)]="formData.tradeType" okText="确定" cancelText="取消">
+            <ion-select-option *ngFor="let item of tradeTypeList" [value]="item.value">{{ item.lable }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="number_select">
+          <ion-label position="stacked">业务经理</ion-label>
+          <ion-select [(ngModel)]="formData.bizEmployeeCode" okText="确定" cancelText="取消">
+            <ion-select-option *ngFor="let item of bizEmployeeList" [value]="item.code">{{ item.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="screen_btn">
+      <button (click)="screenReset()">重置</button>
+      <button (click)="screenConfirm()">确定</button>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>

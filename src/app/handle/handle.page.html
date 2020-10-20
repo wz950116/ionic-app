@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/tabs/worker' ]"><ion-img src="assets/img/back.png" style='width: 80%;'></ion-img></a>
+    </ion-buttons>
+    <ion-title>待办事项</ion-title>
+  </ion-toolbar>
+  <div>
+    <app-header-select [documentTypeList]="documentTypeList" (outer)="selectClick($event)"></app-header-select>
+  </div>
+</ion-header>
+<app-search (search)="openSlideMenu($event)"></app-search>
+
+<ion-content class="approvalWrap">
+  <p *ngIf="approvalList.length === 0" style="text-align: center;color: #999;">
+    没有更多了...
+  </p>
+  <ion-refresher slot="fixed" (ionRefresh)="getList($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="刷新" refreshingSpinner="circles" refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+  <app-cartcontent [btntext]="btntext" [approvalList]="approvalList" [documentType]="documentType"></app-cartcontent>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

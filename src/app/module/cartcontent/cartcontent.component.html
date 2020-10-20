@@ -1,0 +1,28 @@
+<div class="content">
+  <div *ngFor="let item of approvalList">
+    <ion-card
+      *ngIf="documentType === '全部' ? true : item.moduleName === documentType"
+    >
+      <ion-item lines="none">
+        <ion-badge [color]="setColor(item.moduleName)" class="pic1">{{ item.moduleName ? item.moduleName.slice(0, 1) : "" }}</ion-badge>
+        <span class="tit">{{ item.moduleName }}</span>
+        <span class="headerRight r_pi" *ngIf="item.pi">批次</span>
+        <span class="headerRight r_fu" *ngIf="item.fu">附件</span>
+        <ion-text color="medium" slot="end">{{ item.startTime ? item.startTime.slice(0, 10) : "" }}</ion-text>
+      </ion-item>
+      <ion-card-content>
+        <div>
+          <p>{{ item.todoThat }}&nbsp;{{ btntext === '处理' ? "待处理" : "已完成"}}</p>
+          <p>提交人:{{ item.submitter }}</p>
+        </div>
+        <ion-button
+          size="small"
+          [color]="btncolor"
+          (click)="approvaldetail(item)"
+        >
+          {{ btntext }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+@import '../../theme/px2rem.scss';
+
+ion-tab-bar {
+  height: rem(100);
+}
+.tab-selected {
+  app-svg-icon {
+    position: relative;
+    fill: #2484cf;
+  }
+}
+.tab_button_text {
+  font-size: rem(16);
+}
+ion-tab-button {
+  position: relative;
+}
+.content-item-tip {
+  position: absolute;
+  right: rem(40);
+  top: rem(0);
+  padding: rem(2) rem(8);
+  text-align: center;
+  border-radius: 50%;
+  background: red;
+  color: #ffffff;
+  font-size: rem(12);
+}

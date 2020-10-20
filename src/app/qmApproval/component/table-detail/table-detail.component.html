@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-title>{{ data.map && data.map.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="doClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="none" class="information">
+    <ion-item *ngFor="let item of data.map.tableData" class="information-item" [ngStyle]="{'display': item.isHideFlag ? 'none' : 'block'}">
+      <ion-label class="label">{{ item.name }}</ion-label>
+      <ion-label class="value" slot="end" *ngIf="item.dict">
+        {{ data.row[item.prop] | dataDictFormate: item.dict }}
+      </ion-label>
+      <ion-label class="value" slot="end" *ngIf="item.formate === 'date'">
+        {{ data.row[item.prop] | dateFormate }}
+      </ion-label>
+      <ion-label class="value" slot="end" *ngIf="item.formate === 'thousands'">
+        {{ data.row[item.prop] | numFormate: item.precision }}
+      </ion-label>
+      <ion-label class="value" slot="end" *ngIf="!item.dict && !item.formate">
+        {{ data.row[item.prop] }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

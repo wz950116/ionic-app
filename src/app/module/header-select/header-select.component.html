@@ -1,0 +1,16 @@
+<ion-grid class="tools">
+  <ion-row class="ion-align-items-center">
+    <ion-col size="6" class="tools_col" (click)="dropShow = !dropShow">
+      <span>{{ selectName }}&nbsp;<img src="assets/img/down.png" /></span>
+      <div class="top-arrow" *ngIf="dropShow"></div>
+      <ion-list *ngIf="dropShow" lines="full" class="header-options">
+        <ion-item *ngFor="let item of documentTypeList" class="header-option" (click)="selectClick($event)" [id]="item">
+          {{ item }}
+        </ion-item>
+      </ion-list>
+    </ion-col>
+    <ion-col size="6" (click)="openSlideMenu()">
+      <span>筛选 <img src="assets/img/screen.png" /></span>
+    </ion-col>
+  </ion-row>
+</ion-grid>

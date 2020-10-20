@@ -1,0 +1,23 @@
+<ion-menu swipe-gesture="true" side="end" type="overlay" menuId="mine">
+  <ion-content>
+    <div class="screenWrap">
+      <div class="timeWrap">
+        <h3>时间</h3>
+        <div class="datatime">
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" mode="ios" placeholder="开始时间"
+            (ionChange)="changeStartTime($event)" [(ngModel)]="formData.toDoDateStart"></ion-datetime>
+          &nbsp;--&nbsp;
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" mode="ios" placeholder="结束时间"
+            (ionChange)="changeEndTime($event)" [(ngModel)]="formData.toDoDateEnd">
+          </ion-datetime>
+        </div>
+      </div>
+    </div>
+    <div class="screen_btn">
+      <button (click)="screenReset()">重置</button>
+      <button (click)="screenConfirm()">确定</button>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>

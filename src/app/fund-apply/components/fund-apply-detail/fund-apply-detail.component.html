@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="myPrimary">
+    <ion-buttons slot="start">
+      <a [routerLink]="[ '/fund-apply' ]">
+        <ion-img src="assets/img/back.png" style='width: 80%;'></ion-img>
+      </a>
+    </ion-buttons>
+    <ion-title>批次选择</ion-title>
+    <ion-buttons slot="end" (click)="onConfirm()">
+      确定
+    </ion-buttons>
+  </ion-toolbar>
+  <div>
+    <app-header-select [documentTypeList]="documentTypeList" (outer)="selectClick($event)"></app-header-select>
+  </div>
+</ion-header>
+<app-search-info [type]="type" (search)="openSlideMenu($event)"></app-search-info>
+
+<ion-content>
+  <ion-card *ngFor="let item of list; let i = index;">
+    <ion-item lines='none' class='top-info'>
+      <ion-button shape="round" slot="start" class='ion-card-title-type'>
+        {{ item.tradeType | dataDictFormate : 'tradeType' }}
+      </ion-button>
+      <ion-button shape="round" slot="start" class='ion-card-title-type'>
+        {{item.billType === 'CON_SL_INFO' ? '销' : '采' }}
+      </ion-button>
+      <ion-label>{{ item.lotNo }}</ion-label>
+      <ion-text slot="end" class='ion-card-title-date'>
+        {{ item.docMakeDt | dateFormate}}</ion-text>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-row class='middle-info'>
+        <ion-col size="12">
+          <div>{{ item.customerNames }}</div>
+          <div>{{ item.productName }}：{{ item.brand }}-{{ item.origin }}-{{ item.spec }}-{{ item.productKeyAttr01 }}
+          </div>
+          <div>
+            货值(币种)：{{ item. goodsAmount}}({{item.currency | dataDictFormate : 'currency'}})
+          </div>
+          <div>
+            计量数量(单位)：{{ item. measurementQuantity}}({{item.measurementUnitCode | dataDictFormate : 'measurementUnit'}})
+          </div>
+          <div>
+            可申请金额(币种)：{{ item.noneApplyAmount}}({{item.currency | dataDictFormate : 'currency'}})
+          </div>
+        </ion-col>
+        <ion-col size="12" class='ion-card-content-button'>
+          <ng-container>
+            <ion-button shape="round" (click)="detaile(item)">查看详情</ion-button>
+          </ng-container>
+          <ng-container *ngIf="!item.disabled; else elseTemplate">
+            <ion-button shape="round" (click)="onJoin(item)">立即加入</ion-button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ion-button shape="round" style="--opacity: 0.5;" (click)="offJoin(item)">取消加入</ion-button>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
